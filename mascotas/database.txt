@@ -1,0 +1,42 @@
+CREATE DATABASE animals;
+USE animals;
+
+CREATE TABLE mascotas (
+    mascota_id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    edad INT NOT NULL,
+    sexo ENUM('macho', 'hembra') NOT NULL,
+    raza ENUM('perro', 'gato') NOT NULL,
+    tamano ENUM('pequeño', 'mediano', 'grande') NOT NULL,
+    imagen_mascota BLOB NOT NULL,
+    estado ENUM('adoptado', 'disponible', 'en espera') NOT NULL,
+    CONSTRAINT pk_mascotas PRIMARY KEY (mascota_id)
+);
+
+CREATE TABLE usuarios (
+    usuario_id INT NOT NULL AUTO_INCREMENT,
+    nombre_usuario VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    correo_electronico VARCHAR(255) NOT NULL UNIQUE,
+    CONSTRAINT pk_usuarios PRIMARY KEY (usuario_id)
+);
+
+CREATE TABLE admins (
+    admin_id INT NOT NULL AUTO_INCREMENT,
+    nombre_admin VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    correo_electronico VARCHAR(255) NOT NULL UNIQUE,
+    CONSTRAINT pk_admins PRIMARY KEY (admin_id)
+);
+
+CREATE TABLE comentarios (
+    comentario_id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,      
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL, 
+    telefono VARCHAR(15),
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_comentarios PRIMARY KEY (comentario_id)
+);
+

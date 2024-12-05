@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pup Palace - Información del Animal</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            padding-top: 120px; /* Espacio debajo del banner */
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #8B0000;
+            padding: 20px;
+            z-index: 1000;
+        }
+        header img {
+            height: 50px;
+        }
+        nav {
+            margin-left: auto;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a.active {
+            font-weight: bold;
+            color: yellow;
+        }
+        .info-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #8B0000;
+            border-radius: 8px;
+            padding: 40px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            margin: 0 auto;
+            gap: 40px; /* Espacio entre la imagen y el texto */
+            position: relative;
+        }
+        .info-card img {
+            width: 350px; /* Imagen más grande */
+            height: 350px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .info-card .separator {
+            height: 100%;
+            width: 2px;
+            background-color: white;
+        }
+        .info-details {
+            max-width: 500px;
+            text-align: left;
+        }
+        .info-details h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .info-details h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .info-details p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .adoption-message {
+            margin-top: 20px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            color: yellow;
+        }
+        .adoption-message span {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .adoption-message p {
+            margin: 0;
+            color: white;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #DC143C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #FF4500;
+        }
+        footer {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div>
+        <img src="fotos/logoo.png" alt="Logo">
+        <img src="fotos/titulo.png" alt="Título" style="margin-left: 10px;">
+    </div>
+    <nav>
+        <a href="inicio.html">Inicio</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="ayudar.html">Ayudar</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+</header>
+
+<div class="info-card">
+    <button class="back-button" onclick="window.location.href='adoptar.html';">Volver</button>
+    <img src="fotos/antony.jpg" alt="Antony">
+    <div class="separator"></div>
+    <div class="info-details">
+        <h1>Hola, soy Antony!</h1>
+        <h3>Información</h3>
+        <p><strong>Edad:</strong> Adulto</p>
+        <p><strong>Sexo:</strong> Macho</p>
+        <p><strong>Raza:</strong> Labrador</p>
+        <p><strong>Tamaño:</strong> Grande</p>
+        <p><strong>Estado:</strong> En adopción</p>
+        <p><strong>Estado médico:</strong> Vacunado y esterilizado</p>
+        <div class="adoption-message">
+            <span>Contacte al 911</span>
+            <p>¿Quieres adoptar a Antony?</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

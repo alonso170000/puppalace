@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Pup Palace - Adoptar</title>  
+    <style>  
+        body {  
+            margin: 0;  
+            font-family: Arial, sans-serif;  
+            background-color: #000;  
+            color: white;  
+        }  
+        header {  
+            display: flex;  
+            align-items: center;  
+            justify-content: space-between;  
+            background-color: #8B0000;  
+            padding: 20px;  
+        }  
+        header img {  
+            height: 50px;  
+        }  
+        nav {  
+            margin-left: auto;  
+        }  
+        nav a {  
+            color: white;  
+            margin: 0 15px;  
+            text-decoration: none;  
+        }  
+        nav a.active {  
+            font-weight: bold;  
+            color: yellow;  
+        }  
+        .container {  
+            padding: 40px;  
+            text-align: center;  
+        }  
+        .heading {  
+            font-size: 36px;  
+            margin-bottom: 20px;  
+        }  
+        .filters {  
+            display: flex;  
+            justify-content: center;  
+            margin-bottom: 40px;  
+        }  
+        .filters select {  
+            margin: 0 10px;  
+            padding: 10px;  
+            font-size: 16px;  
+            border-radius: 5px;  
+            border: 1px solid #8B0000;  
+        }  
+        .filters button {  
+            padding: 10px 20px;  
+            background-color: #DC143C;  
+            color: white;  
+            border: none;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            font-size: 16px;  
+            transition: background-color 0.3s;  
+        }  
+        .filters button:hover {  
+            background-color: #FF4500;  
+        }  
+        .cards {  
+            display: grid;  
+            grid-template-columns: repeat(4, 1fr);  
+            gap: 20px;  
+            margin-top: 20px;  
+        }  
+        .card {  
+            background-color: #8B0000;  
+            border-radius: 8px;  
+            padding: 20px;  
+            text-align: center;  
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+        }  
+        .card img {  
+            width: 300px; /* Ajusta este valor según sea necesario */  
+            height: 200px; /* Ajusta este valor según sea necesario */  
+            border-radius: 8px;  
+            object-fit: cover; /* Asegura que la imagen se escale correctamente */  
+        }  
+        .card h3 {  
+            margin: 10px 0;  
+            font-size: 20px;  
+        }  
+        .card p {  
+            margin: 10px 0;  
+            font-size: 16px;  
+        }  
+        .card button {  
+            background-color: #DC143C;  
+            color: white;  
+            border: none;  
+            border-radius: 5px;  
+            padding: 10px 15px;  
+            cursor: pointer;  
+            font-size: 16px;  
+            transition: background-color 0.3s;  
+        }  
+        .card button:hover {  
+            background-color: #FF4500;  
+        }  
+    </style>  
+</head>  
+<body>  
+
+<header>  
+    <div>  
+        <img src="fotos/logoo.png" alt="Logo">  
+        <img src="fotos/titulo.png" alt="Título" style="margin-left: 10px;">  
+    </div>  
+    <nav>  
+        <a href="javascript:history.back()">Inicio</a>  
+    </nav>  
+</header>  
+
+<div class="container">
+    <h1 class="heading">Encuentra al nuevo integrante de tu familia</h1>
+    <div class="filters">
+        <select id="raza-filter">
+            <option value="todos">Todos</option>
+        </select>
+        <select id="sexo-filter">
+            <option value="todos">Todos</option>
+            <option value="macho">Macho</option>
+            <option value="hembra">Hembra</option>
+        </select>
+        <select id="tamano-filter">
+            <option value="todos">Todos</option>
+            <option value="pequeño">Pequeño</option>
+            <option value="mediano">Mediano</option>
+            <option value="grande">Grande</option>
+        </select>
+        <button onclick="aplicarFiltros()">Buscar</button>
+    </div>
+    <div class="cards"></div>
+</div>
+
+<script>
+// Llenar los filtros dinámicamente
+fetch('get_filters.php')
+    .then(response => response.json())
+    .then(data => {
+        // Llenar el select de raza
+        const razaSelect = document.getElementById('raza-filter');
+        data.razas.forEach(raza => {
+            const option = document.createElement('option');
+            option.value = raza;
+            option.textContent = raza.charAt(0).toUpperCase() + raza.slice(1);
+            razaSelect.appendChild(option);
+        });
+
+        // No hace falta llenar sexo ni tamaño dinámicamente aquí porque ya están en el HTML
+    })
+    .catch(error => console.error('Error al obtener los filtros:', error));
+
+// Función para cargar mascotas
+function cargarMascotas(raza = 'todos', sexo = 'todos', tamano = 'todos') {
+    const url = `get_filtered_mascotas.php?raza=${raza}&sexo=${sexo}&tamano=${tamano}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const cardsContainer = document.querySelector('.cards');
+            cardsContainer.innerHTML = ''; // Limpiar contenido previo
+
+            if (data.length === 0) {
+                cardsContainer.innerHTML = '<p>No se encontraron resultados.</p>';
+                return;
+            }
+
+            data.forEach(mascota => {
+                const card = `
+                    <div class="card">
+                        <img src="data:image/jpeg;base64,${mascota.imagen_mascota}" alt="${mascota.nombre}">
+                        <h3>${mascota.nombre}</h3>
+                        <p>Edad: ${mascota.edad} años</p>
+                        <p>Sexo: ${mascota.sexo}</p>
+                        <p>Tamaño: ${mascota.tamano}</p>
+                        <button>Ver perfil</button>
+                    </div>
+                `;
+                cardsContainer.innerHTML += card;
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar mascotas:', error);
+            const cardsContainer = document.querySelector('.cards');
+            cardsContainer.innerHTML = '<p style="color: red;">No se pudo cargar la información de las mascotas.</p>';
+        });
+}
+
+// Llamar al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    cargarMascotas();
+});
+
+// Aplicar filtros
+function aplicarFiltros() {
+    const raza = document.querySelector('#raza-filter').value;
+    const sexo = document.querySelector('#sexo-filter').value;
+    const tamano = document.querySelector('#tamano-filter').value;
+
+    cargarMascotas(raza, sexo, tamano);
+}
+</script>
+
+</body>
+</html>
