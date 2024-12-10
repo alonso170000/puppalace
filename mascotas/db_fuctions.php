@@ -3,10 +3,10 @@
 
 // Conexión a la base de datos
 function connectDB() {
-    $servername = "localhost";
+    $servername = "mysql.railway.internal";
     $username = "root";
-    $password = "";
-    $dbname = "animals";
+    $password = "xFfssohUtwgMOzZMNzdWsxzpQVXxgzgR";
+    $dbname = "railway";
     
     // Crear conexión
     $conn = new mysqli($servername, $username, $password, $dbname);
