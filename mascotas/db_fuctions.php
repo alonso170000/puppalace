@@ -7,9 +7,10 @@ function connectDB() {
     $username = getenv("MYSQLUSER");
     $password = getenv("MYSQLPASSWORD");
     $dbname = getenv("MYSQLDATABASE");
+    $port = getenv("MYSQLPORT") ?: 3306;
     
     // Crear conexión
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname, $port);
     
     // Verificar conexión
     if ($conn->connect_error) {
